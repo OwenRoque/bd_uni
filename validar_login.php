@@ -12,7 +12,7 @@
     $ret = $baseDatos->loginUser($usua, $pass);
     if ($ret)
     {
-        $_SESSION['usuario']=$usua;
+        $_SESSION['usuario'] = $usua;
         echo "OK";
     }
     else

@@ -4,7 +4,8 @@
     $p = new usuarios();
     $nombre = $_SESSION['nombre'];
     $datos = $p->obtenCursosUsuario($_SESSION['usuario']);
-    var_dump($datos, $_SESSION['nombre']);
+    $codcurso = $_GET['codcurso'];
+var_dump($codcurso);
 ?>
 <!DOCTYPE html>
  <html>
@@ -23,6 +24,7 @@
    <link rel="stylesheet" href="./assets/vendor/nucleo/css/nucleo.css" type="text/css">
    <link rel="stylesheet" href="./assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
    <!-- Page plugins -->
+   
    <!-- Argon CSS -->
    <link rel="stylesheet" href="./assets/css/argon.css?v=1.1.0" type="text/css">
  </head>
@@ -53,7 +55,7 @@
                     <!-- Nav items -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="dashboard.php">
                                 <i class="fas fa-home text-red"></i>
                                 <span class="nav-link-text">Inicio del Sitio</span>
                             </a>
@@ -76,7 +78,7 @@
                                 <div class="collapse" id="navbar-<?php echo $valor[1]; ?>">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="notas.php?codcurso=<?php echo $valor[1]; ?>" class="nav-link">
                                                 Notas 
                                             </a>
                                         </li>
@@ -139,7 +141,7 @@
                             <h6 class="h2 text-white d-inline-block mb-0"><?php echo $nombre; ?></h6>
                             <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                                    <li class="breadcrumb-item"><a href="#"><i
+                                    <li class="breadcrumb-item"><a href="dashboard.php"><i
                                                 class="fas fa-home"></i></a></li>
                                     <li class="breadcrumb-item active" aria-current="page"><a
                                             href="#">Notas</a></li>

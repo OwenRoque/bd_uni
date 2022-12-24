@@ -22,7 +22,7 @@ function acceder(){
     ajax.onreadystatechange = function() {
         if (ajax.readyState == 4 && ajax.status == 200){
             if (ajax.responseText.trim() == "OK"){
-                window.location.href = "notas.php";
+                window.location.href = "dashboard.php";
             }
         }
     }
