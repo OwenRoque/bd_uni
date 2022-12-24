@@ -5,7 +5,7 @@
     $nombre = $_SESSION['nombre'];
     $datos = $p->obtenCursosUsuario($_SESSION['usuario']);
     $codcurso = $_GET['codcurso'];
-var_dump($codcurso);
+
 ?>
 <!DOCTYPE html>
  <html>
@@ -159,7 +159,7 @@ var_dump($codcurso);
                 <div class="col-12 d-sm-none d-md-block">
                     <div class="card">
                         <!-- Card header -->
-                        <form>
+                        <form id="notas_php" action="usuarios.php" method ='POST'>
                             <div class="card-header border-0">
                             <div class="row">
                                 <div class="col-6">
@@ -192,19 +192,31 @@ var_dump($codcurso);
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>20025156</td>
-                                            <td>ALDO RAUL MARTINEZ</td>
-                                            <td><input class="form-control" type="text" value="8" id="example-text-input"></td>
-                                            <td><input class="form-control" type="text" value="8" id="example-text-input"></td>
-                                            <td><input class="form-control" type="text" value="8" id="example-text-input"></td>
-                                            <td><input class="form-control" type="text" value="12" id="example-text-input"></td>
-                                            <td><input class="form-control" type="text" value="13" id="example-text-input"></td>
-                                            <td><input class="form-control" type="text" value="20" id="example-text-input"></td>
-                                            <td>14</td>
-                                            <td><input class="form-control" type="text" value="A" id="example-text-input"></td>
-                                            <td><input class="form-control" type="text" value="N" id="example-text-input"></td>
-                                        </tr>
+                                        <?php
+                                            $idUser = $_SESSION['usuario'];
+                                            $idUser = (int)$idUser;
+                                            $codigo_curso=$codcurso;
+                                            $infoUser = $p->getInfo($idUser, $codigo_curso);
+                                            $getNotas = $p->getNotas($infoUser[0][0], $infoUser[0][1], $infoUser[0][2], $infoUser[0][3]);
+                                            $i=0;
+                                            foreach($getNotas as $row){
+                                                
+                                                echo "<tr class='tr'>";
+                                                echo "<td class='td'>".$row["codigo"]."</td>";
+                                                echo "<td class='td'>".$row['Nombres']."</td>";
+                                                echo "<td class='td'><input type='number' class='notas' name='continua".$i."' value=".$row['E1']."  min='0' max='20' pattern='^[0-9]+'></td>";
+                                                echo "<td class='td'><input type='number' class='notas' name='continua".$i."' value=".$row['E2']."  min='0' max='20' pattern='^[0-9]+'></td>";
+                                                echo "<td class='td'><input type='number' class='notas' name='continua".$i."' value=".$row['E3']."  min='0' max='20' pattern='^[0-9]+'></td>";
+                                                echo "<td class='td'><input type='number' class='notas' name='continua".$i."' value=".$row['C1']."  min='0' max='20' pattern='^[0-9]+'></td>";
+                                                echo "<td class='td'><input type='number' class='notas' name='continua".$i."' value=".$row['C2']."  min='0' max='20' pattern='^[0-9]+'></td>";
+                                                echo "<td class='td'><input type='number' class='notas' name='continua".$i."' value=".$row['C3']."  min='0' max='20' pattern='^[0-9]+'></td>";
+                                                echo "<td class='td'><input type='number' class='notas' name='continua".$i."' value=".$row['nota_final']."  min='0' max='20' pattern='^[0-9]+'></td>";
+                                                echo "<td class='td'>".$row['grupo']."</td>";
+                                                echo "<td class='td'>".$row['ausente']."</td>";
+                                                echo "</tr>";
+                                                $i++;
+                                            }
+                                        ?>    
                                     </tbody>
                                 </table>
                             </div>

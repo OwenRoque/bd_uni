@@ -168,5 +168,43 @@ class usuarios{
                 where id_usuario='$idusuario'";
         return mysqli_query($conexion,$sql);
     }
+    public function getInfo($codigo_profesor, $codigo_curso){
+        $mysql = new conectar();
+        $db = $mysql->conexionPDO();
+        try {
+        
+            
+            $datos = "SELECT * from profesor_curso p_c 
+            WHERE p_c.codigo_prof='$codigo_profesor' AND p_c.codigo_curso='$codigo_curso'";
+            return $db->query($datos)->fetchAll(PDO::FETCH_NUM);
+
+        }catch (Exception $e){
+            return $e->getMessage();
+        }
+    }
+
+    public function getNotas($codigo_profesor, $codigo_curso, $fecha, $grupo){
+        $mysql = new conectar();
+        $db = $mysql->conexionPDO();
+        
+        try {
+            
+            $result = "CALL mostrar_notas(:codigo_profesor, :grupo, :codigo_curso,:fecha)";
+            $stmt = $db->prepare($result);
+            $stmt->bindParam("codigo_profesor",$codigo_profesor, PDO::PARAM_STR);
+            $stmt->bindParam("codigo_curso",$codigo_curso, PDO::PARAM_STR);
+            $stmt->bindParam("fecha",$fecha, PDO::PARAM_STR);
+            $stmt->bindParam("grupo",$grupo, PDO::PARAM_STR);
+            $stmt->execute();
+            
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        }catch (Exception $e){
+            return $e->getMessage();
+        }
+
+        
+    }
+
 }
  ?>
